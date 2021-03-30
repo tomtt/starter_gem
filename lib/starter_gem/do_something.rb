@@ -12,11 +12,12 @@ module StarterGem
 
     def show
       pastel = Pastel.new
-      if pastel.respond_to? @options[:color]
-        @out.puts pastel.send(@options[:color], @options[:color])
-      else
-        @out.puts "🤷‍♂️ #{@options[:color]}"
-      end
+      output_text = if pastel.respond_to?(@options[:color])
+                      pastel.send(@options[:color], @options[:color])
+                    else
+                      "? #{@options[:color]}"
+                    end
+      puts output_text
     end
   end
 end
