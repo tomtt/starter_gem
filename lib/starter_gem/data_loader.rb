@@ -5,7 +5,7 @@ require 'digest'
 module StarterGem
   class LinesNotFoundError < IOError; end
 
-  class LinesLoader
+  class DataLoader
     class << self
       def raw_to_lines(raw)
         raw.split("\n")
