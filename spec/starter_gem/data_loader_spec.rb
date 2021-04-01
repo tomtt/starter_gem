@@ -38,17 +38,17 @@ RSpec.describe StarterGem::DataLoader do
     expect(StarterGem::DataLoader.read(t_filename)).to eq(['aap', 'noot', 'mies'])
   end
 
-  it "raises LinesNotFoundError is file does not exist" do
+  it "raises DataNotFoundError is file does not exist" do
     expect(lambda { StarterGem::DataLoader.read('/non-existing-file') }).
-      to raise_error(StarterGem::LinesNotFoundError)
+      to raise_error(StarterGem::DataNotFoundError)
 
     expect(lambda { StarterGem::DataLoader.read('anything') }).
-      to raise_error(StarterGem::LinesNotFoundError)
+      to raise_error(StarterGem::DataNotFoundError)
   end
 
-  it "raises LinesNotFoundError is file is not a file" do
+  it "raises DataNotFoundError is file is not a file" do
     expect(lambda { StarterGem::DataLoader.read(StarterGem.root) }).
-      to raise_error(StarterGem::LinesNotFoundError)
+      to raise_error(StarterGem::DataNotFoundError)
   end
 
   it "reraises standard errors when opening a file" do
@@ -68,24 +68,24 @@ RSpec.describe StarterGem::DataLoader do
     expect(StarterGem::DataLoader.read(gist_strings_url)[0..2]).to eq ["E", "A", "D"]
   end
 
-  it "raises LinesNotFoundError if url does not exist" do
+  it "raises DataNotFoundError if url does not exist" do
     url = "https://domainthaterrors.com/404"
     expect(lambda { StarterGem::DataLoader.read url }).
-      to raise_error(StarterGem::LinesNotFoundError)
+      to raise_error(StarterGem::DataNotFoundError)
 
     url = "https://domainthaterrors.com/500"
     expect(lambda { StarterGem::DataLoader.read url }).
-      to raise_error(StarterGem::LinesNotFoundError)
+      to raise_error(StarterGem::DataNotFoundError)
   end
 
-  it "raises LinesNotFoundError content of url is html" do
+  it "raises DataNotFoundError content of url is html" do
     url = "https://domainthaterrors.com/html"
     expect(lambda { StarterGem::DataLoader.read url }).
-      to raise_error(StarterGem::LinesNotFoundError)
+      to raise_error(StarterGem::DataNotFoundError)
 
     url = "https://domainthaterrors.com/html-paragraphs"
     expect(lambda { StarterGem::DataLoader.read url }).
-      to raise_error(StarterGem::LinesNotFoundError)
+      to raise_error(StarterGem::DataNotFoundError)
   end
 
   it "reraises standard errors when opening a url" do

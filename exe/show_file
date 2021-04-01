@@ -1,0 +1,7 @@
+#!/usr/bin/env bundle exec ruby
+
+require "starter_gem"
+puts "--- guitar strings (from local file) ---"
+puts StarterGem::DataLoader.read("guitar_strings")
+puts "--- diatonic notes (from gist) ---"
+puts StarterGem::DataLoader.read("https://gist.github.com/tomtt/2bdafe5e1eeb992bc4bf0ec2e50c6e4e")

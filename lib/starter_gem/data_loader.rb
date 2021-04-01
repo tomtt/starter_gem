@@ -3,7 +3,7 @@ require 'gist'
 require 'digest'
 
 module StarterGem
-  class LinesNotFoundError < IOError; end
+  class DataNotFoundError < IOError; end
 
   class DataLoader
     class << self
@@ -24,9 +24,9 @@ module StarterGem
       def read_file(src, fallback_dir:)
         File.read(filename_with_fallback_dir(src, fallback_dir: fallback_dir))
       rescue Errno::ENOENT
-        raise(LinesNotFoundError, "Unable to open file source for lines '#{src}'")
+        raise(DataNotFoundError, "Unable to open file source for lines '#{src}'")
       rescue Errno::EISDIR
-        raise(LinesNotFoundError, "Source file for lines is a directory '#{src}")
+        raise(DataNotFoundError, "Source file for lines is a directory '#{src}")
       end
 
       def filename_with_fallback_dir(filename, fallback_dir:)
@@ -40,7 +40,7 @@ module StarterGem
       def ensure_is_not_html!(raw)
         return unless raw =~ /<html>|<p>/
 
-        raise(LinesNotFoundError, "Url source contains html, not lines '#{url}'")
+        raise(DataNotFoundError, "Url source contains html, not lines '#{url}'")
       end
 
       def read_raw_url(url)
@@ -50,7 +50,7 @@ module StarterGem
           URI.parse(url).open.read
         end
       rescue OpenURI::HTTPError, SocketError
-        raise(LinesNotFoundError, "Url source for lines not found '#{url}")
+        raise(DataNotFoundError, "Url source for lines not found '#{url}")
       end
 
       def read_url(url)
