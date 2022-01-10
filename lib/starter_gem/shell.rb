@@ -36,6 +36,11 @@ module StarterGem
         parser.on("-v", "--version", "Show version") do |version|
           options[:show_version] = version
         end
+
+        parser.on("-h", "--help", "Prints this help") do
+          puts parser
+          exit
+        end
       }.parse! argv
 
       options
